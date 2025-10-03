@@ -569,7 +569,7 @@ MonoBehaviour:
   - {fileID: 863109003}
   - {fileID: 507834749}
   - {fileID: 1743315626}
-  _spawnCube: {fileID: 3530674648207520194, guid: 7272af6b862ca0046b91b60ff51de720, type: 3}
+  _spawnCube: {fileID: -1582388298266800137, guid: 7272af6b862ca0046b91b60ff51de720, type: 3}
 --- !u!4 &1241021999
 Transform:
   m_ObjectHideFlags: 0

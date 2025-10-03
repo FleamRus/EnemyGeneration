@@ -4,7 +4,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] Transform[] _spawnPoints;
-    [SerializeField] GameObject _spawnCube;
+    [SerializeField] Mover _spawnCube;
 
     private float _spawnTime = 2f;
 
@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnCorutine()
     {
-        while (true)
+        while (enabled)
         {
             SpawnCube();
 
@@ -31,14 +31,15 @@ public class Spawner : MonoBehaviour
 
         Transform spawnPoint = _spawnPoints[indexSpawnPoin];
 
-        GameObject cube = _spawnCube = Instantiate(_spawnCube);
-        cube.transform.position = spawnPoint.position;
+        _spawnCube = Instantiate(_spawnCube);
+        _spawnCube.transform.position = spawnPoint.position;
 
 
         float minValueRange = -1f;
         float maxValueRange = 1f;
+
         Vector3 randomDirection = new(Random.Range(minValueRange, maxValueRange), 0, Random.Range(minValueRange, maxValueRange));
 
-        cube.GetComponent<Mover>().SetMoveDirection(randomDirection);
+        _spawnCube.SetMoveDirection(randomDirection);
     }
 }

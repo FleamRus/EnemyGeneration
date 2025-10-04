@@ -3,15 +3,34 @@ using UnityEngine;
 public class Mover : MonoBehaviour
 {
     private float _speed = 3.0f;
-    private Vector3 _moveDirection = Vector3.forward;
+    private Transform[] _targets;
+    private int _currentTargetIndex = 0;
 
     private void Update()
     {
-        transform.Translate(_speed * Time.deltaTime * _moveDirection, Space.Self);
+        MoveWay();
     }
 
-    public void SetMoveDirection(Vector3 direction)
+    public void SetWay(Transform[] targets)
     {
-        _moveDirection = direction.normalized;
+        _targets = targets;
+    }
+
+    private void MoveWay()
+    {
+        float minDistanceToTarget = 0.05f;
+        Transform target = _targets[_currentTargetIndex];
+
+        transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, target.position) < minDistanceToTarget)
+        {
+            _currentTargetIndex++;
+
+            if (_currentTargetIndex >= _targets.Length)
+            {
+                enabled = false;
+            }
+        }
     }
 }

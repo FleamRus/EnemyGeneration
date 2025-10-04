@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] Transform[] _spawnPoints;
-    [SerializeField] Mover _spawnCube;
+    [SerializeField] Transform[] _arrivedPoints;
+    [SerializeField] Mover _spawnObject;
 
     private float _spawnTime = 2f;
 
@@ -25,21 +25,11 @@ public class Spawner : MonoBehaviour
 
     private void SpawnCube()
     {
-        int minValue = 0;
+        Spawner spawner = GetComponent<Spawner>();
 
-        int indexSpawnPoin = Random.Range(minValue, _spawnPoints.Length);
+        _spawnObject = Instantiate(_spawnObject);
+        _spawnObject.transform.position = spawner.transform.position;
 
-        Transform spawnPoint = _spawnPoints[indexSpawnPoin];
-
-        _spawnCube = Instantiate(_spawnCube);
-        _spawnCube.transform.position = spawnPoint.position;
-
-
-        float minValueRange = -1f;
-        float maxValueRange = 1f;
-
-        Vector3 randomDirection = new(Random.Range(minValueRange, maxValueRange), 0, Random.Range(minValueRange, maxValueRange));
-
-        _spawnCube.SetMoveDirection(randomDirection);
+        _spawnObject.SetWay(_arrivedPoints);
     }
 }

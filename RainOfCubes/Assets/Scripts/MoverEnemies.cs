@@ -20,5 +20,7 @@ public class MoverEnemies : MonoBehaviour
         Transform target = _target;
 
         transform.position = Vector3.Lerp(transform.position, target.position, _speed * Time.deltaTime);
+
+        transform.LookAt(target);
     }
 }

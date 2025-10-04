@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] Transform[] _arrivedPoints;
-    [SerializeField] MoverPlayer _spawnObjectPlayer;
-    [SerializeField] MoverEnemies _spawnObjectEnemies;
+    [SerializeField] private Transform[] _arrivedPoints;
+    [SerializeField] private MoverPlayer _spawnObjectPlayer;
+    [SerializeField] private MoverEnemies _spawnObjectEnemies;
 
     private int _pointSpawnPlyerIndex = 0;
     private float _spawnTime = 15f;
@@ -37,8 +37,9 @@ public class Spawner : MonoBehaviour
 
     private void SpawnObjectEnemies()
     {
-        _spawnObjectEnemies = Instantiate(_spawnObjectEnemies);
-        _spawnObjectEnemies.transform.position = this.transform.position;
-        _spawnObjectEnemies.SetTarget(_spawnObjectPlayer.transform);
+        MoverEnemies enemy =  Instantiate(_spawnObjectEnemies);
+
+        enemy.transform.position = this.transform.position;
+        enemy.SetTarget(_spawnObjectPlayer.transform);
     }
 }

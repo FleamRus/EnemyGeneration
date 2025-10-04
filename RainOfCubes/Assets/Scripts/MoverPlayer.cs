@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class MoverPlayer : MonoBehaviour
 {
     private float _speed = 3.0f;
     private Transform[] _targets;
@@ -29,7 +29,7 @@ public class Mover : MonoBehaviour
 
             if (_currentTargetIndex >= _targets.Length)
             {
-                enabled = false;
+                _currentTargetIndex = 0;
             }
         }
     }

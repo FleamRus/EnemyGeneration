@@ -4,12 +4,16 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] Transform[] _arrivedPoints;
-    [SerializeField] Mover _spawnObject;
+    [SerializeField] MoverPlayer _spawnObjectPlayer;
+    [SerializeField] MoverEnemies _spawnObjectEnemies;
 
-    private float _spawnTime = 2f;
+    private int _pointSpawnPlyerIndex = 0;
+    private float _spawnTime = 15f;
 
     private void Start()
     {
+        SpawnObjectPlayers();
+
         StartCoroutine(SpawnCorutine());
     }
 
@@ -17,19 +21,24 @@ public class Spawner : MonoBehaviour
     {
         while (enabled)
         {
-            SpawnCube();
+            SpawnObjectEnemies();
 
             yield return new WaitForSeconds(_spawnTime);
         }
     }
 
-    private void SpawnCube()
+    private void SpawnObjectPlayers()
     {
-        Spawner spawner = GetComponent<Spawner>();
+        _spawnObjectPlayer = Instantiate(_spawnObjectPlayer);
+        _spawnObjectPlayer.transform.position = _arrivedPoints[_pointSpawnPlyerIndex].position;
 
-        _spawnObject = Instantiate(_spawnObject);
-        _spawnObject.transform.position = spawner.transform.position;
+        _spawnObjectPlayer.SetWay(_arrivedPoints);
+    }
 
-        _spawnObject.SetWay(_arrivedPoints);
+    private void SpawnObjectEnemies()
+    {
+        _spawnObjectEnemies = Instantiate(_spawnObjectEnemies);
+        _spawnObjectEnemies.transform.position = this.transform.position;
+        _spawnObjectEnemies.SetTarget(_spawnObjectPlayer.transform);
     }
 }
